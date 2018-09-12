@@ -14,6 +14,7 @@
             <select id="choose">
                 <option value="check">Check a number is a prime?</option>
                 <option value="amount">Show amount of first primes.</option>
+                <option value="condition">Show amount of first primes in condition</option>
             </select>
         </tr>
         <tr>
@@ -33,27 +34,20 @@
 </body>
 <script>
     function prime(num){
+        if(num<2){
+            return false;
+        }
         if (num === 2) {
             return true;
         }
-        else if(num > 1){
-            for (var i = 2;  i < Math.sqrt(num); i++) {
+        else {
+            for (var i = 2;  i <= (num/2); i++) {
 
-                if (num % i !== 0 ) {
-                    return true;
-                }
-
-                else if (num === i * i) {
-                    return false
-                }
-
-                else {
+                if (num % i == 0 ) {
                     return false;
                 }
             }
-        }
-        else {
-            return false;
+            return true;
         }
 
     }
@@ -74,7 +68,7 @@
                       break;}
             case "amount":
                 let count = 0;
-                let i=2
+                let i=2;
                 let arr=[];
                 while (count < num+1){
                     if(prime(i)){
@@ -83,6 +77,16 @@
                     }i=i+1;
                 }for (let j=0; j <num; j++){
                 rep +="<br>"+"Số nguyên tố thứ "+(j+1)+" là: " + arr[j];
+                }break;
+            case "condition":
+                let k=2;
+                let arr2=[];
+                while (k < num){
+                    if(prime(k)){
+                        arr2.push(k);
+                    }k=k+1;
+                }for (let j=0; j <arr2.length; j++){
+                rep +="<br>"+"Số nguyên tố thứ "+(j+1)+" là: " + arr2[j];
             }
         }
      document.getElementById("output").innerHTML = rep;
