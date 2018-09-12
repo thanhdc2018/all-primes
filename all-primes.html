@@ -22,10 +22,7 @@
         <tr>
             <td><input id= "num" type="number"></td>
             <td>
-                <input
-                    type = "button"
-                    onclick = "choose()"
-                    value = "IMPLEMENT">
+                <input type = "button" onclick = "luachon()" value = "IMPLEMENT">
             </td>
         </tr>
     </table>
@@ -35,25 +32,32 @@
 </form>
 </body>
 <script>
-    function prime(n){
-        if (n<2){
-            let result = false;
-            break;
+    function prime(num){
+        if (num === 2) {
+            return true;
         }
-        else{
-                for (let i=2; i<(n/2); i++){
-                    if (n%i==0){
-                            result = false;
-                            break;
-                        }
-                        else{
-                            let result = true;
-                            }
+        else if(num > 1){
+            for (var i = 2;  i < Math.sqrt(num); i++) {
+
+                if (num % i !== 0 ) {
+                    return true;
+                }
+
+                else if (num === i * i) {
+                    return false
+                }
+
+                else {
+                    return false;
                 }
             }
         }
+        else {
+            return false;
+        }
 
-    function choose(){
+    }
+    function luachon(){
         let c = document.getElementById("choose")[document.getElementById("choose").selectedIndex];
         c = c.value;
         let num = document.getElementById("num");
@@ -64,23 +68,22 @@
             case "check":
                 let result = prime(num);
                 if (result == true){
-                    rep += +num + "is a prime";
+                    rep += +num + " is a prime";
                     break;
                 }else{rep += +num + " is NOT a prime"
                       break;}
             case "amount":
-                const n = (2^31-1);
                 let count = 0;
-                let array = Array();
-                for (let j = 0; j<n; j++){
-                    if(prime(j)== true){
-                        array.push(j);
-                        if(array.length == num){
-                            return array;}
-                    }for (let k= 0; k<array.length; j++){
-                        rep += + array[k]  +"<br>";
-                        break;}
-                }
+                let i=2
+                let arr=[];
+                while (count < num+1){
+                    if(prime(i)){
+                        arr.push(i);
+                        count++;
+                    }i=i+1;
+                }for (let j=0; j <num; j++){
+                rep +="<br>"+"Số nguyên tố thứ "+(j+1)+" là: " + arr[j];
+            }
         }
      document.getElementById("output").innerHTML = rep;
     }
